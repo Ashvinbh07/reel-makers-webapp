@@ -13,19 +13,22 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/80 backdrop-blur-xl">
       <nav className="mx-auto flex min-h-20 w-full max-w-[1600px] items-center justify-between px-5 sm:px-6 lg:px-10">
-        <Link href="/" className="group flex items-center gap-4">
-          <span className="relative grid size-12 place-items-center overflow-hidden rounded-xl border border-cyan-300/30 bg-[linear-gradient(145deg,rgba(255,255,255,0.08),rgba(34,211,238,0.1),rgba(0,0,0,0.1))] shadow-[0_0_34px_rgba(34,211,238,0.2)] transition duration-300 group-hover:border-cyan-200/55 group-hover:shadow-[0_0_42px_rgba(34,211,238,0.3)]">
-            <span className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(103,232,249,0.18),transparent_58%)]" />
-            <span className="relative text-[17px] font-black leading-none tracking-[-0.04em] text-white">
+        <Link href="/" className="group flex items-center gap-5">
+          <span
+            aria-hidden="true"
+            className="relative grid size-14 shrink-0 place-items-center overflow-hidden rounded-2xl border border-cyan-200/35 bg-[linear-gradient(145deg,rgba(255,255,255,0.12),rgba(34,211,238,0.14)_44%,rgba(4,8,10,0.92)_100%)] shadow-[0_0_34px_rgba(34,211,238,0.22),inset_0_1px_0_rgba(255,255,255,0.18)] transition duration-300 group-hover:border-cyan-100/60 group-hover:shadow-[0_0_46px_rgba(34,211,238,0.32),inset_0_1px_0_rgba(255,255,255,0.24)]"
+          >
+            <span className="absolute inset-0 bg-[radial-gradient(circle_at_28%_18%,rgba(255,255,255,0.22),transparent_34%),radial-gradient(circle_at_64%_76%,rgba(34,211,238,0.24),transparent_52%)]" />
+            <span className="relative text-[22px] font-black leading-none tracking-[0.01em] text-cyan-50 drop-shadow-[0_0_14px_rgba(103,232,249,0.56)]">
               RM
             </span>
           </span>
           <span className="flex flex-col gap-1.5 leading-none">
-            <span className="text-sm font-semibold uppercase tracking-[0.24em] text-white">
+            <span className="text-sm font-semibold uppercase tracking-[0.26em] text-white">
               Reel Makers
             </span>
-            <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-cyan-200/60">
-              AI Content Studio
+            <span className="text-[10px] font-medium uppercase tracking-[0.32em] text-cyan-200/65">
+              AI Creative Studio
             </span>
           </span>
         </Link>

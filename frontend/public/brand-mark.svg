@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#030303" />
+  <rect
+    x="54"
+    y="54"
+    width="404"
+    height="404"
+    rx="92"
+    fill="url(#shell)"
+    stroke="#a5f3fc"
+    stroke-opacity="0.52"
+    stroke-width="10"
+  />
+  <g filter="url(#glow)">
+    <path
+      d="M184 128c0-23 26-38 46-26l170 101c20 12 20 42 0 54L230 410c-20 12-46-3-46-26V128Z"
+      fill="url(#play)"
+    />
+  </g>
+  <defs>
+    <linearGradient id="shell" x1="76" x2="436" y1="60" y2="448" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#153238" />
+      <stop offset="0.46" stop-color="#06333c" />
+      <stop offset="1" stop-color="#041113" />
+    </linearGradient>
+    <linearGradient id="play" x1="184" x2="416" y1="104" y2="390" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ecfeff" />
+      <stop offset="0.45" stop-color="#67e8f9" />
+      <stop offset="1" stop-color="#06b6d4" />
+    </linearGradient>
+    <filter id="glow" x="119" y="44" width="354" height="400" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feFlood flood-color="#22d3ee" flood-opacity="0.56" />
+      <feComposite in2="SourceAlpha" operator="in" />
+      <feGaussianBlur stdDeviation="28" />
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+</svg>
