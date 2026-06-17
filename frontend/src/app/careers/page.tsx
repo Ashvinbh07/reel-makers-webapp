@@ -31,14 +31,6 @@ const jobs = [
     skills: ["Hooks", "Storytelling", "CTAs", "Ad scripts"],
   },
   {
-    title: "AI Video Creator",
-    department: "AI Creative",
-    location: "Remote / Hybrid",
-    type: "Full-time / Freelance",
-    experience: "1+ years",
-    skills: ["AI tools", "Prompting", "Visual direction", "Editing"],
-  },
-  {
     title: "Graphic Designer",
     department: "Design",
     location: "Remote / Hybrid",
@@ -54,23 +46,10 @@ const jobs = [
     experience: "1+ years",
     skills: ["Content calendars", "Analytics", "Posting", "Trends"],
   },
-  {
-    title: "Sales Executive",
-    department: "Sales",
-    location: "Remote / Hybrid",
-    type: "Full-time / Internship",
-    experience: "0-2 years",
-    skills: ["Lead generation", "Pitching", "CRM", "Follow-ups"],
-  },
-  {
-    title: "Client Success Executive",
-    department: "Operations",
-    location: "Remote / Hybrid",
-    type: "Full-time",
-    experience: "1+ years",
-    skills: ["Client handling", "Briefs", "Coordination", "Reporting"],
-  },
 ];
+
+const applicationFormUrl =
+  "https://docs.google.com/forms/d/10VizhlGtKMopjew3hwU8sYbd7go44KSWQwF4-Vo591g/viewform";
 
 export default function CareersPage() {
   return (
@@ -182,8 +161,10 @@ export default function CareersPage() {
               </div>
 
               <a
-                href="/contact"
+                href={applicationFormUrl}
                 className="mt-6 inline-flex w-full justify-center rounded-full border border-cyan-300/35 bg-cyan-300/10 px-4 py-2.5 text-sm font-semibold text-cyan-100 transition duration-200 hover:bg-cyan-300 hover:text-black"
+                rel="noreferrer"
+                target="_blank"
               >
                 Apply Now
               </a>
@@ -201,8 +182,10 @@ export default function CareersPage() {
             </h2>
             <div className="mt-6">
               <a
-                href="/contact"
+                href={applicationFormUrl}
                 className="inline-flex rounded-full bg-cyan-400 px-6 py-3 font-semibold text-black shadow-[0_0_28px_rgba(34,211,238,0.28)] transition duration-200 hover:bg-cyan-300"
+                rel="noreferrer"
+                target="_blank"
               >
                 Apply Now
               </a>

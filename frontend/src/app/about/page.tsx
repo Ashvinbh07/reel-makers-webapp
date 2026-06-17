@@ -1,10 +1,32 @@
 const services = [
-  "AI Reels",
-  "Promo Script Writing",
-  "AI Posters",
-  "AI Video Generation",
-  "Meta Ads Creatives",
-  "Micro Drama Production",
+  {
+    title: "AI Reels",
+    description:
+      "AI-assisted reels built with strong hooks, voiceovers, and human editing.",
+  },
+  {
+    title: "Promo Script Writing",
+    description:
+      "Scroll-stopping scripts designed for retention and conversions.",
+  },
+  {
+    title: "AI Posters",
+    description:
+      "Brand-ready posters for campaigns, launches, and social media.",
+  },
+  {
+    title: "AI Video Generation",
+    description: "AI-assisted videos for promos, explainers, and ads.",
+  },
+  {
+    title: "Meta Ads Creatives",
+    description: "Performance-focused creatives for paid campaigns.",
+  },
+  {
+    title: "Micro Drama Production",
+    description:
+      "End-to-end content production for short-form entertainment.",
+  },
 ];
 
 const stats = [
@@ -17,10 +39,26 @@ const stats = [
 ];
 
 const reasons = [
-  "AI + Human Creativity",
-  "Fast Turnaround",
-  "Dedicated Team",
-  "Scalable Production",
+  {
+    title: "AI + Human Creativity",
+    description:
+      "Smart AI workflows refined by editors, writers, and creative leads.",
+  },
+  {
+    title: "Fast Turnaround",
+    description:
+      "Built for brands that need campaign-ready content without delays.",
+  },
+  {
+    title: "Dedicated Team",
+    description:
+      "A focused creative team supports scripting, assets, edits, and delivery.",
+  },
+  {
+    title: "Scalable Production",
+    description:
+      "From one promo to high-volume content systems, we can scale output.",
+  },
 ];
 
 export default function AboutPage() {
@@ -72,20 +110,35 @@ export default function AboutPage() {
         <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => (
             <article
-              key={service}
+              key={service.title}
               className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-lg shadow-cyan-950/10 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/35 hover:bg-cyan-300/[0.06] hover:shadow-cyan-950/30"
             >
               <div className="absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
               <span className="mb-5 flex size-11 items-center justify-center rounded-xl border border-cyan-300/25 bg-cyan-300/10 text-xs font-bold text-cyan-200">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="text-xl font-semibold text-white">{service}</h3>
+              <h3 className="text-xl font-semibold text-white">
+                {service.title}
+              </h3>
+              <p className="mt-2 text-sm leading-5 text-zinc-400">
+                {service.description}
+              </p>
             </article>
           ))}
         </div>
       </section>
 
       <section className="mx-auto mt-12 w-full max-w-[1400px] px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto mb-7 max-w-2xl text-center">
+          <h2 className="text-4xl font-semibold text-white sm:text-5xl">
+            Trusted by Brands &amp; Creators
+          </h2>
+          <p className="mt-4 text-lg text-zinc-400">
+            Delivering creative content at scale across reels, ads, posters,
+            and micro-drama campaigns.
+          </p>
+        </div>
+
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {stats.map(([number, label]) => (
             <article
@@ -109,13 +162,19 @@ export default function AboutPage() {
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {reasons.map((reason) => (
             <article
-              key={reason}
-              className="group relative flex min-h-28 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-center shadow-lg shadow-cyan-950/10 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/35 hover:bg-cyan-300/[0.06] hover:shadow-cyan-950/30"
+              key={reason.title}
+              className="group relative flex min-h-28 flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-center shadow-lg shadow-cyan-950/10 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/35 hover:bg-cyan-300/[0.06] hover:shadow-cyan-950/30"
             >
               <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
+              <span className="mb-3 flex size-7 items-center justify-center rounded-full border border-cyan-300/25 bg-cyan-300/10 text-sm font-bold text-cyan-200">
+                &#10003;
+              </span>
               <h3 className="text-sm font-semibold leading-6 text-white">
-                {reason}
+                {reason.title}
               </h3>
+              <p className="mt-2 text-xs leading-5 text-zinc-400">
+                {reason.description}
+              </p>
             </article>
           ))}
         </div>
@@ -128,6 +187,10 @@ export default function AboutPage() {
             <h2 className="text-4xl font-semibold text-white sm:text-5xl">
               Ready to grow your content?
             </h2>
+            <p className="mt-4 text-lg leading-7 text-zinc-300">
+              Need reels, promos, ads, posters, or AI videos? Let&apos;s build
+              your next campaign together.
+            </p>
             <div className="mt-6">
               <a
                 href="/contact"
