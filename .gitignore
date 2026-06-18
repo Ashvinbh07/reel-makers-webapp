@@ -2,6 +2,7 @@
 backend/venv/
 __pycache__/
 *.pyc
+backend/*.db
 
 # Next.js
 frontend/node_modules/
@@ -9,6 +10,7 @@ frontend/.next/
 
 # Environment
 .env
+backend/.env
 
 # Logs
 *.log
