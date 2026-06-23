@@ -16,4 +16,5 @@ class ContactInquiry(Base):
     service_required = Column(String(255), nullable=True)
     budget_range = Column(String(100), nullable=True)
     message = Column(Text, nullable=False)
+    status = Column(String(50), default="new", nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)

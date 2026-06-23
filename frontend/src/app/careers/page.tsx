@@ -74,13 +74,13 @@ export default function CareersPage() {
           {benefits.map((benefit, index) => (
             <article
               key={benefit}
-              className="group relative flex min-h-28 items-start gap-3 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 shadow-lg shadow-cyan-950/10 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/35 hover:bg-cyan-300/[0.06] hover:shadow-cyan-950/30"
+              className="group relative flex min-h-16 items-center gap-3 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-2.5 shadow-lg shadow-cyan-950/10 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/35 hover:bg-cyan-300/[0.06] hover:shadow-cyan-950/30"
             >
               <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-cyan-300/25 bg-cyan-300/10 text-xs font-bold text-cyan-200">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-xl border border-cyan-300/25 bg-cyan-300/10 text-[11px] font-bold text-cyan-200">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h2 className="text-sm font-semibold leading-6 text-white">
+              <h2 className="text-sm font-semibold leading-5 text-white">
                 {benefit}
               </h2>
             </article>

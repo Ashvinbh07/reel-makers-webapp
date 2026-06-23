@@ -1,10 +1,38 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import inspect, text
 
 from .database import Base, engine
+from .routes.admin import router as admin_router
 from .routes.contact import router as contact_router
 
 Base.metadata.create_all(bind=engine)
+
+
+def ensure_contact_inquiry_status_column():
+    inspector = inspect(engine)
+
+    if not inspector.has_table("contact_inquiries"):
+        return
+
+    columns = {
+        column["name"]
+        for column in inspector.get_columns("contact_inquiries")
+    }
+
+    if "status" in columns:
+        return
+
+    with engine.begin() as connection:
+        connection.execute(
+            text(
+                "ALTER TABLE contact_inquiries "
+                "ADD COLUMN status VARCHAR(50) NOT NULL DEFAULT 'new'"
+            )
+        )
+
+
+ensure_contact_inquiry_status_column()
 
 app = FastAPI(
     title="Reel Makers API",
@@ -34,3 +62,4 @@ def health_check():
 
 
 app.include_router(contact_router)
+app.include_router(admin_router)

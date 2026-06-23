@@ -71,7 +71,12 @@ class ContactInquiryRead(BaseModel):
     service_required: str | None = None
     budget_range: str | None = None
     message: str
+    status: str
     created_at: datetime
 
     class Config:
         from_attributes = True
+
+
+class ContactInquiryStatusUpdate(BaseModel):
+    status: str

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type MouseEvent } from "react";
+import { useMemo, useState, type MouseEvent } from "react";
 import Image from "next/image";
 
 const categories = [
@@ -8,9 +8,8 @@ const categories = [
   "Micro Drama",
   "Meta Ads",
   "AI Reels",
-  "Promo Scripts",
-  "AI Voiceovers",
   "Posters",
+  "Promo Scripts",
 ];
 
 const featuredProjects = [
@@ -150,7 +149,7 @@ const scriptShowcase = [
   },
   {
     title: "Emotional Promo Script",
-    category: "Promo Script",
+    category: "Promo Scripts",
     preview:
       '"जिस घर को बचाने की कोशिश थी, वही घर अब सबसे बड़ा खतरा बन चुका था..."',
     fullScript:
@@ -236,6 +235,7 @@ function ProjectPreview({
 }
 
 export default function PortfolioPage() {
+  const [activeCategory, setActiveCategory] = useState("All");
   const [selectedScript, setSelectedScript] = useState<
     (typeof scriptShowcase)[number] | null
   >(null);
@@ -251,6 +251,37 @@ export default function PortfolioPage() {
       .getElementById("featured-projects")
       ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  const filteredFeaturedProjects = useMemo(() => {
+    if (activeCategory === "All") {
+      return featuredProjects;
+    }
+
+    return featuredProjects.filter(
+      (project) => project.category === activeCategory
+    );
+  }, [activeCategory]);
+
+  const filteredCaseStudies = useMemo(() => {
+    if (activeCategory === "All") {
+      return caseStudies;
+    }
+
+    return caseStudies.filter((study) => study.category === activeCategory);
+  }, [activeCategory]);
+
+  const filteredScriptShowcase = useMemo(() => {
+    if (activeCategory === "All" || activeCategory === "Promo Scripts") {
+      return scriptShowcase;
+    }
+
+    return scriptShowcase.filter((script) => script.category === activeCategory);
+  }, [activeCategory]);
+
+  const showFeaturedProjects = activeCategory !== "Promo Scripts";
+  const showCaseStudies = activeCategory === "All";
+  const showScriptShowcase =
+    activeCategory === "All" || activeCategory === "Promo Scripts";
 
   return (
     <main className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.18),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(244,114,182,0.12),transparent_28%),#030303]">
@@ -293,13 +324,14 @@ export default function PortfolioPage() {
 
       <section className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] p-2 shadow-xl shadow-cyan-950/10">
-          {categories.map((category, index) => {
-            const isActive = index === 0;
+          {categories.map((category) => {
+            const isActive = activeCategory === category;
 
             return (
               <button
                 key={category}
                 type="button"
+                onClick={() => setActiveCategory(category)}
                 className={`rounded-full border px-4 py-2 text-sm font-semibold transition duration-200 ${
                   isActive
                     ? "border-cyan-200/70 bg-cyan-300 text-black shadow-[0_0_24px_rgba(34,211,238,0.24)]"
@@ -313,210 +345,220 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      <section
-        id="featured-projects"
-        className="scroll-mt-6 mx-auto mt-8 w-full max-w-[1400px] px-4 pb-12 sm:px-6 lg:px-8"
-      >
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-4xl font-semibold text-white sm:text-5xl">
-            Featured Projects
-          </h2>
-          <p className="mt-3 text-lg leading-7 text-zinc-400">
-            Selected campaign work across micro-drama promos, Meta ads, AI
-            reels, scripts, voiceovers, and posters.
-          </p>
-        </div>
+      {showFeaturedProjects ? (
+        <section
+          id="featured-projects"
+          className="scroll-mt-6 mx-auto mt-8 w-full max-w-[1400px] px-4 pb-12 sm:px-6 lg:px-8"
+        >
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-4xl font-semibold text-white sm:text-5xl">
+              Featured Projects
+            </h2>
+            <p className="mt-3 text-lg leading-7 text-zinc-400">
+              Selected campaign work across micro-drama promos, Meta ads, AI
+              reels, scripts, voiceovers, and posters.
+            </p>
+          </div>
 
-        <div className="mt-7 grid auto-rows-fr items-stretch gap-4 lg:grid-cols-2">
-          {featuredProjects.map((project, index) => (
-            <article
-              key={project.title}
-              className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-lg shadow-cyan-950/10 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-cyan-300/[0.055] hover:shadow-cyan-950/30"
-            >
-              <ProjectPreview
-                category={project.category}
-                index={index}
-                isVideo={project.mediaType === "video"}
-                onOpen={() => setSelectedMedia(project)}
-                thumbnailSrc={project.thumbnailSrc}
-                title={project.title}
-              />
-
-              <div className="flex flex-1 flex-col p-4 sm:p-5">
-                <div className="flex-1">
-                  <h3 className="text-2xl font-semibold leading-tight text-white">
-                    {project.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-zinc-400">
-                    {project.description}
-                  </p>
-
-                  <div className="mt-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200/70">
-                      Deliverables
-                    </p>
-                    <div className="mt-2.5 flex flex-wrap gap-2">
-                      {project.deliverables.map((deliverable) => (
-                        <span
-                          key={deliverable}
-                          className="rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs font-medium text-zinc-300"
-                        >
-                          {deliverable}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-auto pt-4">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedMedia(project)}
-                    className="inline-flex rounded-full border border-cyan-300/35 bg-cyan-300/10 px-4 py-2.5 text-sm font-semibold text-cyan-100 transition duration-200 hover:bg-cyan-300 hover:text-black"
-                  >
-                    View Case Study
-                  </button>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section
-        id="case-studies"
-        className="scroll-mt-6 mx-auto w-full max-w-[1400px] px-4 pb-12 sm:px-6 lg:px-8"
-      >
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-4xl font-semibold text-white sm:text-5xl">
-            Case Studies
-          </h2>
-          <p className="mt-3 text-lg leading-7 text-zinc-400">
-            How we approach campaigns from brief to final delivery.
-          </p>
-        </div>
-
-        <div className="mt-6 grid gap-2.5">
-          {caseStudies.map((study, index) => (
-            <article
-              key={study.title}
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-3.5 shadow-lg shadow-cyan-950/10 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/40 hover:bg-cyan-300/[0.05] hover:shadow-cyan-950/30 sm:p-4"
-            >
-              <div className="absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
-
-              <div className="grid gap-3.5 lg:grid-cols-[auto_0.85fr_1.15fr] lg:items-start">
-                <div className="flex items-center gap-3 lg:block">
-                  <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl border border-cyan-300/25 bg-cyan-300/10 text-sm font-black text-cyan-100 shadow-lg shadow-cyan-950/20">
-                    {String(index + 1).padStart(2, "0")}
-                  </div>
-                  <span className="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-200 lg:mt-3 lg:inline-flex">
-                    {study.category}
-                  </span>
-                </div>
-
-                <div>
-                  <h3 className="text-2xl font-semibold leading-tight text-white">
-                    {study.title}
-                  </h3>
-                  <div className="mt-3 grid gap-2.5">
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200/70">
-                        Challenge
-                      </p>
-                      <p className="mt-1 text-sm leading-6 text-zinc-400">
-                        {study.challenge}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200/70">
-                        Solution
-                      </p>
-                      <p className="mt-1 text-sm leading-6 text-zinc-400">
-                        {study.solution}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid gap-3.5 md:grid-cols-2 lg:gap-4">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200/70">
-                      Deliverables
-                    </p>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {study.deliverables.map((deliverable) => (
-                        <span
-                          key={deliverable}
-                          className="rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs font-medium text-zinc-300"
-                        >
-                          {deliverable}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200/70">
-                      Highlights
-                    </p>
-                    <div className="mt-2 grid gap-1.5">
-                      {study.highlights.map((highlight) => (
-                        <div
-                          key={highlight}
-                          className="rounded-xl border border-cyan-300/20 bg-cyan-300/10 px-3 py-1.5"
-                        >
-                          <p className="text-sm font-semibold text-cyan-200">
-                            {highlight}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto w-full max-w-[1400px] px-4 pb-12 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-4xl font-semibold text-white sm:text-5xl">
-            Script Showcase
-          </h2>
-          <p className="mt-3 text-lg leading-7 text-zinc-400">
-            Promo hooks, Hindi narration lines, ad scripts, and
-            voiceover-ready copy created for short-form campaigns.
-          </p>
-        </div>
-
-        <div className="mt-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {scriptShowcase.map((script) => (
-            <article
-              key={script.title}
-              className="group relative flex min-h-56 flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 shadow-lg shadow-cyan-950/10 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/40 hover:bg-cyan-300/[0.05] hover:shadow-cyan-950/30"
-            >
-              <div className="absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
-              <span className="w-fit rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-200">
-                {script.category}
-              </span>
-              <h3 className="mt-4 text-xl font-semibold leading-tight text-white">
-                {script.title}
-              </h3>
-              <p className="mt-3 flex-1 text-sm leading-6 text-zinc-300">
-                {script.preview}
-              </p>
-              <button
-                type="button"
-                onClick={() => setSelectedScript(script)}
-                className="mt-5 inline-flex w-fit rounded-full border border-cyan-300/35 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-100 transition duration-200 hover:bg-cyan-300 hover:text-black"
+          <div className="mt-7 grid auto-rows-fr items-stretch gap-4 lg:grid-cols-2">
+            {filteredFeaturedProjects.map((project, index) => (
+              <article
+                key={project.title}
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-lg shadow-cyan-950/10 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-cyan-300/[0.055] hover:shadow-cyan-950/30"
               >
-                Read Script
-              </button>
-            </article>
-          ))}
-        </div>
-      </section>
+                <ProjectPreview
+                  category={project.category}
+                  index={index}
+                  isVideo={project.mediaType === "video"}
+                  onOpen={() => setSelectedMedia(project)}
+                  thumbnailSrc={project.thumbnailSrc}
+                  title={project.title}
+                />
+
+                <div className="flex flex-1 flex-col p-4 sm:p-5">
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-semibold leading-tight text-white">
+                      {project.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-6 text-zinc-400">
+                      {project.description}
+                    </p>
+
+                    <div className="mt-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200/70">
+                        Deliverables
+                      </p>
+                      <div className="mt-2.5 flex flex-wrap gap-2">
+                        {project.deliverables.map((deliverable) => (
+                          <span
+                            key={deliverable}
+                            className="rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs font-medium text-zinc-300"
+                          >
+                            {deliverable}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-auto pt-4">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedMedia(project)}
+                      className="inline-flex rounded-full border border-cyan-300/35 bg-cyan-300/10 px-4 py-2.5 text-sm font-semibold text-cyan-100 transition duration-200 hover:bg-cyan-300 hover:text-black"
+                    >
+                      View Case Study
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {showCaseStudies ? (
+        <section
+          id="case-studies"
+          className="scroll-mt-6 mx-auto w-full max-w-[1400px] px-4 pb-12 sm:px-6 lg:px-8"
+        >
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-4xl font-semibold text-white sm:text-5xl">
+              Case Studies
+            </h2>
+            <p className="mt-3 text-lg leading-7 text-zinc-400">
+              How we approach campaigns from brief to final delivery.
+            </p>
+          </div>
+
+          <div className="mt-6 grid gap-2.5">
+            {filteredCaseStudies.map((study, index) => (
+              <article
+                key={study.title}
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-3.5 shadow-lg shadow-cyan-950/10 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/40 hover:bg-cyan-300/[0.05] hover:shadow-cyan-950/30 sm:p-4"
+              >
+                <div className="absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
+
+                <div className="grid gap-3.5 lg:grid-cols-[auto_0.85fr_1.15fr] lg:items-start">
+                  <div className="flex items-center gap-3 lg:block">
+                    <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl border border-cyan-300/25 bg-cyan-300/10 text-sm font-black text-cyan-100 shadow-lg shadow-cyan-950/20">
+                      {String(index + 1).padStart(2, "0")}
+                    </div>
+                    <span className="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-200 lg:mt-3 lg:inline-flex">
+                      {study.category}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="text-2xl font-semibold leading-tight text-white">
+                      {study.title}
+                    </h3>
+                    <div className="mt-3 grid gap-2.5">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200/70">
+                          Challenge
+                        </p>
+                        <p className="mt-1 text-sm leading-6 text-zinc-400">
+                          {study.challenge}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200/70">
+                          Solution
+                        </p>
+                        <p className="mt-1 text-sm leading-6 text-zinc-400">
+                          {study.solution}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid gap-3.5 md:grid-cols-2 lg:gap-4">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200/70">
+                        Deliverables
+                      </p>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {study.deliverables.map((deliverable) => (
+                          <span
+                            key={deliverable}
+                            className="rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs font-medium text-zinc-300"
+                          >
+                            {deliverable}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200/70">
+                        Highlights
+                      </p>
+                      <div className="mt-2 grid gap-1.5">
+                        {study.highlights.map((highlight) => (
+                          <div
+                            key={highlight}
+                            className="rounded-xl border border-cyan-300/20 bg-cyan-300/10 px-3 py-1.5"
+                          >
+                            <p className="text-sm font-semibold text-cyan-200">
+                              {highlight}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {showScriptShowcase ? (
+        <section
+          className={`mx-auto w-full max-w-[1400px] px-4 pb-12 sm:px-6 lg:px-8 ${
+            activeCategory === "Promo Scripts" ? "mt-8" : ""
+          }`}
+        >
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-4xl font-semibold text-white sm:text-5xl">
+              Script Showcase
+            </h2>
+            <p className="mt-3 text-lg leading-7 text-zinc-400">
+              Promo hooks, Hindi narration lines, ad scripts, and
+              voiceover-ready copy created for short-form campaigns.
+            </p>
+          </div>
+
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {filteredScriptShowcase.map((script) => (
+              <article
+                key={script.title}
+                className="group relative flex min-h-56 flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 shadow-lg shadow-cyan-950/10 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/40 hover:bg-cyan-300/[0.05] hover:shadow-cyan-950/30"
+              >
+                <div className="absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
+                <span className="w-fit rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-200">
+                  {script.category}
+                </span>
+                <h3 className="mt-4 text-xl font-semibold leading-tight text-white">
+                  {script.title}
+                </h3>
+                <p className="mt-3 flex-1 text-sm leading-6 text-zinc-300">
+                  {script.preview}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSelectedScript(script)}
+                  className="mt-5 inline-flex w-fit rounded-full border border-cyan-300/35 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-100 transition duration-200 hover:bg-cyan-300 hover:text-black"
+                >
+                  Read Script
+                </button>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {selectedMedia ? (
         <div
