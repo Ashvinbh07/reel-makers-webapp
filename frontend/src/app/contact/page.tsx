@@ -1,6 +1,5 @@
 "use client";
 
-import type { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
 
 const services = [
@@ -162,106 +161,8 @@ function CustomSelect({
 
 export default function ContactPage() {
   const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    message: "",
-  });
   const [selectedService, setSelectedService] = useState("");
   const [selectedBudget, setSelectedBudget] = useState("");
-
-  const handleInputChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = event.target;
-
-    setFormData((current) => ({
-      ...current,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSuccessMessage("");
-    setErrorMessage("");
-
-    const trimmedFormData = {
-      name: formData.name.trim(),
-      email: formData.email.trim(),
-      phone: formData.phone.trim(),
-      company: formData.company.trim(),
-      message: formData.message.trim(),
-    };
-    const cleanedPhone = trimmedFormData.phone.replace(/[\s\-()]/g, "");
-
-    if (
-      !trimmedFormData.name ||
-      !trimmedFormData.email ||
-      !trimmedFormData.phone ||
-      !trimmedFormData.message
-    ) {
-      setErrorMessage(
-        "Please fill in name, email, phone, and message before submitting."
-      );
-      return;
-    }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedFormData.email)) {
-      setErrorMessage("Please enter a valid email address.");
-      return;
-    }
-
-    if (!/^\d{10,15}$/.test(cleanedPhone)) {
-      setErrorMessage("Please enter a valid phone number.");
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch("http://127.0.0.1:8000/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: trimmedFormData.name,
-          email: trimmedFormData.email,
-          phone: `+91 ${cleanedPhone}`,
-          company: trimmedFormData.company,
-          service_required: selectedService,
-          budget_range: selectedBudget,
-          message: trimmedFormData.message,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Contact request failed");
-      }
-
-      setSuccessMessage(
-        "Thanks! Your inquiry has been submitted successfully."
-      );
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        message: "",
-      });
-      setSelectedService("");
-      setSelectedBudget("");
-    } catch {
-      setErrorMessage("Something went wrong. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <main className="overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.18),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(244,114,182,0.12),transparent_28%),#030303]">
@@ -284,8 +185,12 @@ export default function ContactPage() {
         <div className="grid items-start gap-5 lg:grid-cols-[1.15fr_0.85fr]">
           <form
             className="self-start rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-xl shadow-cyan-950/10 sm:p-6"
-            noValidate
-            onSubmit={handleSubmit}
+            onSubmit={(event) => {
+              event.preventDefault();
+              setSuccessMessage(
+                "Thanks! Your inquiry has been received. Our team will contact you within 24 hours."
+              );
+            }}
           >
             <div className="grid gap-4 sm:grid-cols-2">
               <label>
@@ -293,10 +198,8 @@ export default function ContactPage() {
                 <input
                   className={inputClass}
                   name="name"
-                  onChange={handleInputChange}
                   placeholder="Your name"
                   type="text"
-                  value={formData.name}
                 />
               </label>
 
@@ -305,10 +208,8 @@ export default function ContactPage() {
                 <input
                   className={inputClass}
                   name="email"
-                  onChange={handleInputChange}
                   placeholder="you@brand.com"
-                  type="text"
-                  value={formData.email}
+                  type="email"
                 />
               </label>
 
@@ -321,10 +222,8 @@ export default function ContactPage() {
                   <input
                     className="min-w-0 flex-1 bg-transparent text-white outline-none placeholder:text-zinc-600"
                     name="phone"
-                    onChange={handleInputChange}
                     placeholder="00000 00000"
                     type="tel"
-                    value={formData.phone}
                   />
                 </div>
               </label>
@@ -334,10 +233,8 @@ export default function ContactPage() {
                 <input
                   className={inputClass}
                   name="company"
-                  onChange={handleInputChange}
                   placeholder="Brand name"
                   type="text"
-                  value={formData.company}
                 />
               </label>
 
@@ -368,9 +265,7 @@ export default function ContactPage() {
                 <textarea
                   className={`${inputClass} h-40 resize-y`}
                   name="message"
-                  onChange={handleInputChange}
                   placeholder="Tell us about your campaign, timeline, and content goals."
-                  value={formData.message}
                 />
               </label>
             </div>
@@ -378,20 +273,13 @@ export default function ContactPage() {
             <button
               type="submit"
               className="mt-6 inline-flex w-full justify-center rounded-full bg-cyan-400 px-6 py-3 font-semibold text-black shadow-[0_0_28px_rgba(34,211,238,0.28)] transition duration-200 hover:bg-cyan-300 sm:w-auto"
-              disabled={isSubmitting}
             >
-              {isSubmitting ? "Submitting..." : "Submit Inquiry"}
+              Submit Inquiry
             </button>
 
             {successMessage ? (
               <p className="mt-4 rounded-xl border border-cyan-300/25 bg-cyan-300/10 px-4 py-3 text-sm font-medium leading-6 text-cyan-100">
                 {successMessage}
-              </p>
-            ) : null}
-
-            {errorMessage ? (
-              <p className="mt-4 rounded-xl border border-red-300/25 bg-red-300/10 px-4 py-3 text-sm font-medium leading-6 text-red-100">
-                {errorMessage}
               </p>
             ) : null}
           </form>

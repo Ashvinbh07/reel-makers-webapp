@@ -282,15 +282,15 @@ export default function Home() {
           {[
             [
               "Reel Makers helped us scale our content output without increasing our internal workload.",
-              "Marketing Manager",
+              "Marketing Lead",
             ],
             [
               "Their scripts and edits made our promos much more engaging and conversion-focused.",
-              "D2C Brand Founder",
+              "Founder",
             ],
             [
               "The AI plus human editing workflow is fast, clean, and reliable.",
-              "Content Marketing Lead",
+              "Brand Manager",
             ],
           ].map(([quote, role]) => (
             <div
