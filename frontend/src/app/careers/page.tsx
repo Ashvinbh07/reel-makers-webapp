@@ -31,14 +31,6 @@ const jobs = [
     skills: ["Hooks", "Storytelling", "CTAs", "Ad scripts"],
   },
   {
-    title: "AI Video Creator",
-    department: "AI Creative",
-    location: "Remote / Hybrid",
-    type: "Full-time / Freelance",
-    experience: "1+ years",
-    skills: ["AI tools", "Prompting", "Visual direction", "Editing"],
-  },
-  {
     title: "Graphic Designer",
     department: "Design",
     location: "Remote / Hybrid",
@@ -54,23 +46,10 @@ const jobs = [
     experience: "1+ years",
     skills: ["Content calendars", "Analytics", "Posting", "Trends"],
   },
-  {
-    title: "Sales Executive",
-    department: "Sales",
-    location: "Remote / Hybrid",
-    type: "Full-time / Internship",
-    experience: "0-2 years",
-    skills: ["Lead generation", "Pitching", "CRM", "Follow-ups"],
-  },
-  {
-    title: "Client Success Executive",
-    department: "Operations",
-    location: "Remote / Hybrid",
-    type: "Full-time",
-    experience: "1+ years",
-    skills: ["Client handling", "Briefs", "Coordination", "Reporting"],
-  },
 ];
+
+const applicationFormUrl =
+  "https://docs.google.com/forms/d/10VizhlGtKMopjew3hwU8sYbd7go44KSWQwF4-Vo591g/viewform";
 
 export default function CareersPage() {
   return (
@@ -95,13 +74,13 @@ export default function CareersPage() {
           {benefits.map((benefit, index) => (
             <article
               key={benefit}
-              className="group relative flex min-h-28 items-start gap-3 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 shadow-lg shadow-cyan-950/10 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/35 hover:bg-cyan-300/[0.06] hover:shadow-cyan-950/30"
+              className="group relative flex min-h-16 items-center gap-3 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-2.5 shadow-lg shadow-cyan-950/10 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/35 hover:bg-cyan-300/[0.06] hover:shadow-cyan-950/30"
             >
               <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-cyan-300/25 bg-cyan-300/10 text-xs font-bold text-cyan-200">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-xl border border-cyan-300/25 bg-cyan-300/10 text-[11px] font-bold text-cyan-200">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h2 className="text-sm font-semibold leading-6 text-white">
+              <h2 className="text-sm font-semibold leading-5 text-white">
                 {benefit}
               </h2>
             </article>
@@ -182,8 +161,10 @@ export default function CareersPage() {
               </div>
 
               <a
-                href="/contact"
+                href={applicationFormUrl}
                 className="mt-6 inline-flex w-full justify-center rounded-full border border-cyan-300/35 bg-cyan-300/10 px-4 py-2.5 text-sm font-semibold text-cyan-100 transition duration-200 hover:bg-cyan-300 hover:text-black"
+                rel="noreferrer"
+                target="_blank"
               >
                 Apply Now
               </a>
@@ -201,8 +182,10 @@ export default function CareersPage() {
             </h2>
             <div className="mt-6">
               <a
-                href="/contact"
+                href={applicationFormUrl}
                 className="inline-flex rounded-full bg-cyan-400 px-6 py-3 font-semibold text-black shadow-[0_0_28px_rgba(34,211,238,0.28)] transition duration-200 hover:bg-cyan-300"
+                rel="noreferrer"
+                target="_blank"
               >
                 Apply Now
               </a>
