@@ -343,43 +343,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* FOOTER */}
-      <footer className="mx-auto mt-6 w-full max-w-[1400px] border-t border-white/10 px-4 pt-4 sm:px-6 lg:px-8">
-        <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-start">
-          <div>
-            <h2 className="text-xl font-semibold text-white">Reel Makers</h2>
-            <p className="mt-2 max-w-md text-sm leading-5 text-zinc-400">
-              AI-powered creative studio for reels, ads, scripts, posters, and
-              videos.
-            </p>
-          </div>
-
-          <nav className="flex flex-wrap gap-x-3 gap-y-1.5 md:justify-end">
-            {[
-              ["Home", "/"],
-              ["About", "/about"],
-              ["Services", "/services"],
-              ["Portfolio", "/portfolio"],
-              ["Pricing", "/pricing"],
-              ["Careers", "/careers"],
-              ["Contact", "/contact"],
-            ].map(([label, href]) => (
-              <a
-                key={href}
-                href={href}
-                className="text-sm font-medium text-zinc-400 transition duration-200 hover:text-cyan-300"
-              >
-                {label}
-              </a>
-            ))}
-          </nav>
-        </div>
-
-        <p className="mt-4 border-t border-white/10 py-3 text-sm text-zinc-500">
-          © 2026 Reel Makers. All rights reserved.
-        </p>
-      </footer>
     </main>
   );
 }
