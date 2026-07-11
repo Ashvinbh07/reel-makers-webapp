@@ -1,3 +1,5 @@
+import TrustedBrands from "@/components/TrustedBrands";
+
 export default function Home() {
   return (
     <main className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.18),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(244,114,182,0.14),transparent_28%),#030303]">
@@ -109,6 +111,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <TrustedBrands />
 
       {/* SERVICES */}
       <section className="mx-auto mt-14 w-full max-w-[1400px] px-4 sm:px-6 lg:px-8">
