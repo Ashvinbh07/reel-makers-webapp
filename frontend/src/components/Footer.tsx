@@ -15,8 +15,8 @@ const quickLinks = [
 const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com/reel_makers.rm", icon: InstagramIcon },
   { label: "LinkedIn", href: "https://www.linkedin.com/company/reelmakersrm", icon: LinkedInIcon },
-  { label: "YouTube", href: "https://www.youtube.com/@reelmakers", icon: YouTubeIcon },
-  { label: "Facebook", href: "https://www.facebook.com/reelmakers", icon: FacebookIcon },
+  { label: "YouTube", href: "https://www.youtube.com/@reelmakersrm", icon: YouTubeIcon },
+  { label: "Facebook", href: "https://www.facebook.com/reelmakersrm", icon: FacebookIcon },
   { label: "X", href: "https://x.com/reelmakersrm", icon: XIcon },
 ];
 

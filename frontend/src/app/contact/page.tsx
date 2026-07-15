@@ -50,13 +50,13 @@ const contactInfo = [
   },
   {
     label: "YouTube",
-    value: "Reel Makers",
-    href: "https://www.youtube.com/@reelmakers",
+    value: "Reel Makers RM",
+    href: "https://www.youtube.com/@reelmakersrm",
   },
   {
     label: "Facebook",
-    value: "Reel Makers",
-    href: "https://www.facebook.com/reelmakers",
+    value: "Reel Makers RM",
+    href: "https://www.facebook.com/reelmakersrm",
   },
   {
     label: "Business Hours",

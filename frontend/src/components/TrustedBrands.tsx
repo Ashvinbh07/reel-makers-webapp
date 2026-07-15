@@ -1,12 +1,30 @@
 import Image from "next/image";
 
 const brands = [
-  { name: "Lumina", logo: "/brands/lumina.svg" },
-  { name: "Vertex", logo: "/brands/vertex.svg" },
-  { name: "Northstar", logo: "/brands/northstar.svg" },
-  { name: "Pulse", logo: "/brands/pulse.svg" },
-  { name: "Orbit", logo: "/brands/orbit.svg" },
-  { name: "Aether", logo: "/brands/aether.svg" },
+  {
+    name: "Kuku TV",
+    logo: "/brands/kuku-tv.webp",
+  },
+  {
+    name: "Kuku FM",
+    logo: "/brands/kuku-fm.webp",
+  },
+  {
+    name: "STORY TV",
+    logo: "/brands/story-tv.png",
+  },
+  {
+    name: "Flick TV",
+    logo: "/brands/flick-tv.webp",
+  },
+  {
+    name: "Quick TV",
+    logo: "/brands/quick-tv.webp",
+  },
+  {
+    name: "Bullet",
+    logo: "/brands/bullet.webp",
+  },
 ] as const;
 
 function BrandRow({ hidden = false }: { hidden?: boolean }) {
@@ -15,7 +33,7 @@ function BrandRow({ hidden = false }: { hidden?: boolean }) {
       {brands.map((brand) => (
         <div
           key={brand.name}
-          className="trusted-brand-item group"
+          className="trusted-brand-item"
           aria-label={`${brand.name} logo`}
           role={hidden ? undefined : "img"}
         >
@@ -23,7 +41,8 @@ function BrandRow({ hidden = false }: { hidden?: boolean }) {
             src={brand.logo}
             alt={hidden ? "" : `${brand.name} logo`}
             width={180}
-            height={56}
+            height={70}
+            sizes="180px"
             className="trusted-brand-logo"
           />
         </div>
