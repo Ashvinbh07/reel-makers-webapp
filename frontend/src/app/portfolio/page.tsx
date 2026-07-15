@@ -14,9 +14,9 @@ const categories = [
 
 const featuredProjects = [
   {
-    title: "KukuTV Micro Drama Promotions",
+    title: "Micro Drama Promotions",
     category: "Micro Drama",
-    thumbnailSrc: "/portfolio/kukutv/kukutv-promo-thumb-1.jpg",
+    thumbnailSrc: "/portfolio/kukutv/kukutv-promo-thumb.jpg",
     mediaSrc: "/portfolio/kukutv/kukutv-promo-1.mp4",
     mediaType: "video",
     description:
@@ -64,7 +64,7 @@ const featuredProjects = [
   {
     title: "AI Poster Design",
     category: "Posters",
-    thumbnailSrc: "/portfolio/posters/poster-1.jpg",
+    thumbnailSrc: "/portfolio/posters/poster-1-thumb.jpg",
     mediaSrc: "/portfolio/posters/poster-1.jpg",
     mediaType: "image",
     description:
@@ -600,8 +600,12 @@ export default function PortfolioPage() {
                   <video
                     src={selectedMedia.mediaSrc}
                     className="aspect-[9/16] max-h-[80vh] w-auto max-w-full bg-black object-contain"
+                    autoPlay
+                    muted
+                    loop
                     controls
                     playsInline
+                    preload="auto"
                   />
                 </div>
               ) : (

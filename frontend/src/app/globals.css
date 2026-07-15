@@ -64,19 +64,22 @@ body {
 }
 
 .trusted-brand-logo {
-  height: 2.5rem;
+  height: 2.75rem;
   width: auto;
   max-width: 100%;
   object-fit: contain;
-  opacity: 0.7;
-  filter: grayscale(1) brightness(0) invert(1);
   transform: translateZ(0);
-  transition: filter 300ms ease, opacity 300ms ease, transform 300ms ease;
+  transition: filter 300ms ease, transform 300ms ease;
+}
+
+@media (min-width: 640px) {
+  .trusted-brand-logo {
+    height: 3rem;
+  }
 }
 
 .trusted-brand-item:hover .trusted-brand-logo {
-  opacity: 1;
-  filter: grayscale(0) drop-shadow(0 0 12px rgba(34, 211, 238, 0.6));
+  filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.6));
   transform: translateZ(0) scale(1.05);
 }
 
