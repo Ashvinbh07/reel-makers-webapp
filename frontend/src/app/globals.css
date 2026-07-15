@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -68,6 +68,8 @@ body {
   width: auto;
   max-width: 100%;
   object-fit: contain;
+  opacity: 1;
+  filter: saturate(1.15) contrast(1.05) drop-shadow(0 0 6px rgba(34, 211, 238, 0.18));
   transform: translateZ(0);
   transition: filter 300ms ease, transform 300ms ease;
 }
@@ -79,8 +81,9 @@ body {
 }
 
 .trusted-brand-item:hover .trusted-brand-logo {
-  filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.6));
-  transform: translateZ(0) scale(1.05);
+  opacity: 1;
+    filter: saturate(1.15) contrast(1.05) drop-shadow(0 0 12px rgba(34, 211, 238, 0.6));
+    transform: translateZ(0) scale(1.05);
 }
 
 @media (max-width: 1023px) {
