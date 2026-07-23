@@ -601,7 +601,6 @@ export default function PortfolioPage() {
                     src={selectedMedia.mediaSrc}
                     className="aspect-[9/16] max-h-[80vh] w-auto max-w-full bg-black object-contain"
                     autoPlay
-                    muted
                     loop
                     controls
                     playsInline
