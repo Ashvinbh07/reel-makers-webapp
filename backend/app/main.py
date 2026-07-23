@@ -44,6 +44,8 @@ allowed_origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://reel-makers-webapp.vercel.app",
+    "https://reelmakersrm.org",
+    "https://www.reelmakersrm.org",
 ]
 
 app.add_middleware(
