@@ -224,7 +224,10 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/contact", {
+      const API_URL =
+        process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
+      const response = await fetch(`${API_URL}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -241,12 +244,15 @@ export default function ContactPage() {
       });
 
       if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        console.error("Contact request failed:", response.status, errorData);
         throw new Error("Contact request failed");
       }
 
       setSuccessMessage(
         "Thanks! Your inquiry has been submitted successfully."
       );
+
       setFormData({
         name: "",
         email: "",
@@ -254,9 +260,11 @@ export default function ContactPage() {
         company: "",
         message: "",
       });
+
       setSelectedService("");
       setSelectedBudget("");
-    } catch {
+    } catch (error) {
+      console.error("Contact form error:", error);
       setErrorMessage("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
